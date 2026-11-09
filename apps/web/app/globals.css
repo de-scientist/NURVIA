@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand Primitives */
+  --brand-navy: #142B4A;
+  --brand-teal: #0D9488;
+  --brand-teal-dark: #0F766E;
+  --brand-navy-deep: #0B1D33;
+
+  /* Light Theme Surfaces & Colors */
+  --background: #F4F7F9;
+  --surface: #FFFFFF;
+  --surface-muted: #EEF3F6;
+  --surface-elevated: #FFFFFF;
+  --text-primary: #142B4A;
+  --text-secondary: #64748B;
+  --text-muted: #94A3B8;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  
+  --primary: #0D9488;
+  --primary-hover: #0F766E;
+  --primary-foreground: #FFFFFF;
+
+  /* Semantic Feedback */
+  --success: #15803D;
+  --warning: #D97706;
+  --error: #DC2626;
+  --info: #2563EB;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.05);
+  --shadow-md: 0 4px 12px rgb(15 23 42 / 0.08);
+  --shadow-lg: 0 12px 32px rgb(15 23 42 / 0.12);
+}
+
+.dark {
+  /* Dark Theme Surfaces & Colors */
+  --background: #0B1220;
+  --surface: #111C2E;
+  --surface-muted: #18263B;
+  --surface-elevated: #1B2B42;
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --border: #27364A;
+  --border-strong: #3B4C63;
+  
+  --primary: #2DD4BF;
+  --primary-hover: #5EEAD4;
+  --primary-foreground: #0B1220;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.2);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.35);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.45);
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--background);
+  font-family: var(--font-ui), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.6);
+}

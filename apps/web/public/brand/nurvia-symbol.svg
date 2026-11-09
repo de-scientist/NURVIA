@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%" fill="none">
+  <!-- NURVIA Geometric Learning Path Symbol -->
+  <defs>
+    <linearGradient id="nurviaTealGrad" x1="15%" y1="85%" x2="85%" y2="15%">
+      <stop offset="0%" stop-color="#0D9488" />
+      <stop offset="100%" stop-color="#2DD4BF" />
+    </linearGradient>
+    <linearGradient id="nurviaNavyGrad" x1="10%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#142B4A" />
+      <stop offset="100%" stop-color="#0F2036" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base foundational arc (Foundation) -->
+  <path d="M 22 76 C 22 52, 40 38, 56 38 C 66 38, 74 44, 78 52" 
+        stroke="url(#nurviaNavyGrad)" 
+        stroke-width="10" 
+        stroke-linecap="round" />
+
+  <!-- Ascending learning path arc (Progression) -->
+  <path d="M 28 82 C 42 82, 60 76, 74 58 C 82 48, 82 32, 72 24 C 64 17, 50 20, 48 34" 
+        stroke="url(#nurviaTealGrad)" 
+        stroke-width="10" 
+        stroke-linecap="round" />
+
+  <!-- Zenith focus marker (Confidence & Achievement) -->
+  <circle cx="76" cy="22" r="7" fill="#0D9488" />
+  <circle cx="24" cy="76" r="5" fill="#142B4A" />
+</svg>
