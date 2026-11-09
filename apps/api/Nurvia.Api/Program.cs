@@ -1,41 +1,79 @@
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Add services to the container
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "NURVIA Nursing Education API",
+        Version = "v1",
+        Description = "Modular API for the NURVIA Nursing Exam Preparation and Learning Platform"
+    });
+});
+
+// Configure CORS for Next.js frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000", "https://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "NURVIA API v1");
+        c.RoutePrefix = "swagger";
+    });
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 
-var summaries = new[]
+// Health and Status Endpoint
+app.MapGet("/api/health", () => Results.Ok(new
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    Status = "Healthy",
+    Application = "NURVIA Core API",
+    Version = "1.0.0",
+    Timestamp = DateTime.UtcNow
+}))
+.WithName("HealthCheck")
+.WithOpenApi();
 
-app.MapGet("/weatherforecast", () =>
+// Phase 1 Sample Catalogue Discovery Endpoint
+app.MapGet("/api/catalogue/summary", () => Results.Ok(new
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    TotalExams = 142,
+    Programs = new[] { "RN", "PN/LPN", "ADN", "BSN" },
+    Providers = new[] { "ATI", "HESI", "NCLEX", "NURVIA Original" },
+    Categories = new[]
+    {
+        "Fundamentals of Nursing",
+        "Adult Medical-Surgical",
+        "Pharmacology",
+        "Dosage Calculations",
+        "Maternal Newborn & Obstetrics",
+        "Pediatric Nursing",
+        "Mental Health",
+        "Leadership & Management",
+        "Comprehensive Predictor Exit Exams"
+    }
+}))
+.WithName("GetCatalogueSummary")
+.WithOpenApi();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
