@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nurvia-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nurvia_user
+      POSTGRES_PASSWORD: nurvia_secure_password_dev2026!
+      POSTGRES_DB: nurvia_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - nurvia_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nurvia_user -d nurvia_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  nurvia_pgdata:
+    driver: local
